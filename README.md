@@ -1,63 +1,37 @@
 ## アプリケーション名
 
-# coachtech お問い合わせフォーム
+# アプリケーション名（COACHTECHフリマ）
 
 ## 環境構築
 
-```
+### Dockerビルド
 
-git cloneコマンドでリポジトリからダウンロード
-ダウンロードしたディレクトリの中のsrcディレクトリにある
-「.env.example」をコピーして「.env」を作成しDBの設定を変更
+- `git clone <リポジトリのURL>`
+- `docker-compose up -d --build`
 
-cp .env.example .env
+### Laravel環境構築
 
+- `docker-compose exec php bash`
+- `composer install`
+- `cp .env.example .env`（環境変数を変更）
+- `php artisan key:generate`
+- `php artisan migrate`
+- `php artisan db:seed`
 
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel_db
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_pass
+## 開発環境
 
-dockerコンテナを構築
+- 会員登録画面：http://localhost/register
+- ログイン画面：http://localhost/login
+- 商品一覧画面：http://localhost/
+- phpMyAdmin：http://localhost:8080/
 
-docker-compose up -d --build
+## 使用技術（実行環境）
 
-phpコンテナにログインしてLaravelをインストール
-
-docker-compose exec php bash
-composer install
-
-アプリケーションキーを作成
-
-php artisan key:generate
-
-DBのテーブルを作成
-
-php artisan migrate
-
-DBのテーブルにダミーデータを投入
-
-php artisan db:seed
-
-"The stream or file could not be opened"エラーが発生した場合
-srcディレクトリにあるstorageディレクトリに権限を設定
-
-chmod -R 777 storage
-```
-
-## 使用技術(実行環境)
-
-PHP：8.1.x
-Laravel：10.x.x
-MySQL：8.0.x
-Nginx：1.2x.x
-
-## URL
-
-トップページ：http://localhost/
-管理画面：http://localhost/admin
+- PHP 8.x
+- Laravel 8.x / 10.x
+- MySQL 8.0.x
+- nginx 1.21.1
+- Docker / docker-compose
 
 ## ER図
 

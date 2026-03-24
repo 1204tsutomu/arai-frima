@@ -11,20 +11,16 @@
     <style>
         .header {
             background: #000;
-
             border-bottom: none;
-
         }
 
         .header__logo {
             color: #fff;
-
         }
 
         .form__button-submit {
             background: #ff5a5f;
         }
-
 
         .form__login-link {
             text-align: center;
@@ -35,6 +31,23 @@
             color: #0080ff;
             text-decoration: none;
             font-size: 14px;
+        }
+
+        /* エラーメッセージを赤く、少し小さくするスタイル */
+        .form__error p {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        /* 117行目あたり、もし無ければ追加 */
+        .form__error p {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+            /* 上の余白を少し詰める */
+            margin-bottom: 0;
+            /* ★下（デカすぎの原因）の余白をゼロにする！ */
         }
     </style>
 </head>
@@ -53,8 +66,12 @@
             <div class="contact-form__heading">
                 <h2>会員登録</h2>
             </div>
-            <form class="form" action="/register" method="post">
-                @csrf <div class="form__group">
+
+            <form action="/register" method="POST" novalidate>
+                @csrf
+
+                {{-- ユーザー名 --}}
+                <div class="form__group">
                     <div class="form__group-title">
                         <span class="form__label--item">ユーザー名</span>
                     </div>
@@ -63,11 +80,14 @@
                             <input type="text" name="name" placeholder="例: test太郎" value="{{ old('name') }}" />
                         </div>
                         <div class="form__error">
-                            @error('name') {{ $message }} @enderror
+                            @error('name')
+                            <p>{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
 
+                {{-- メールアドレス --}}
                 <div class="form__group">
                     <div class="form__group-title">
                         <span class="form__label--item">メールアドレス</span>
@@ -77,11 +97,14 @@
                             <input type="email" name="email" placeholder="test@example.com" value="{{ old('email') }}" />
                         </div>
                         <div class="form__error">
-                            @error('email') {{ $message }} @enderror
+                            @error('email')
+                            <p>{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
 
+                {{-- パスワード --}}
                 <div class="form__group">
                     <div class="form__group-title">
                         <span class="form__label--item">パスワード</span>
@@ -91,11 +114,14 @@
                             <input type="password" name="password" />
                         </div>
                         <div class="form__error">
-                            @error('password') {{ $message }} @enderror
+                            @error('password')
+                            <p>{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
 
+                {{-- 確認用パスワード --}}
                 <div class="form__group">
                     <div class="form__group-title">
                         <span class="form__label--item">確認用パスワード</span>
@@ -118,5 +144,3 @@
         </div>
     </main>
 </body>
-
-</html>

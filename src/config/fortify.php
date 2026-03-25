@@ -146,6 +146,7 @@ return [
     */
 
     'features' => [
+        // \Laravel\Fortify\Features::login(),
         Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),

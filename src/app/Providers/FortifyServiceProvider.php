@@ -26,7 +26,6 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.register');
         });
 
-        // ログイン画面も後で作るので、今のうちに指定しておくと楽です
         Fortify::loginView(function () {
             return view('auth.login');
         });

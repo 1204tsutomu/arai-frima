@@ -17,14 +17,21 @@ class RegisterController extends Controller
     }
 
 
+    // App/Http/Controllers/RegisterController.php
+
     public function store(RegisterRequest $request)
     {
-        $user = $request->all();
 
-        $user['password'] = Hash::make($request->password);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-        \App\Models\User::create($user);
 
-        return redirect('/login');
+        auth()->login($user);
+
+
+        return redirect()->route('profile.edit');
     }
 }

@@ -1,52 +1,150 @@
+/* ===============================================
+   1. 全体の共通基盤
+   =============================================== */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* ===============================================
+   2. ヘッダー（スマホで2段になる魔術込み）
+   =============================================== */
 .header {
     background: #000;
 }
 
 .header__inner {
     margin: 0 auto;
-    padding: 20px 15px;
+    padding: 15px 40px;
     max-width: 1230px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.header__logo {
+.header__logo img {
+    height: 25px;
+    display: block;
+}
+
+.header__search {
+    flex: 1;
+    margin: 0 40px;
+}
+
+.header__search input {
+    width: 100%;
+    padding: 8px 15px;
+    border-radius: 4px;
+    border: none;
+    box-sizing: border-box;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-list a,
+.nav-list button {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 14px;
 }
 
+.btn-exhibit {
+    background-color: #fff;
+    color: #000 !important;
+    padding: 6px 15px;
+    border-radius: 4px;
+}
+
+/* ===============================================
+   3. 商品一覧・タブ
+   =============================================== */
+.item-container {
+    max-width: 1230px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.tabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+.tab.active {
+    color: #ff4d4d;
+    font-weight: bold;
+    border-bottom: 2px solid #ff4d4d;
+    margin-bottom: -12px;
+    padding-bottom: 10px;
+}
+
+/* 商品グリッド（PC版：自動で最適な列数に） */
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 30px;
+}
+
+.item-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.item-image img,
+.dummy-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: #D9D9D9;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-name {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* ===============================================
+   4. 会員登録・ログインフォーム用（共用）
+   =============================================== */
 .contact-form__content {
     margin: 0 auto;
     padding: 30px 15px;
-    max-width: 1230px;
-}
-
-.contact-form__heading {
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.form {
-    margin: 0 auto;
-    width: 70%;
-    text-align: center;
+    max-width: 600px;
+    /* フォームは少し細い方が美しいです */
 }
 
 .form__group {
-    /* display: flex; を削除して縦並びに */
     margin-bottom: 25px;
-    /* 項目ごとの間隔 */
     text-align: left;
-    /* ラベルを左寄せに */
 }
 
 .form__group-title {
     margin-bottom: 8px;
     font-weight: bold;
-}
-
-.form__group-content {
-    width: 100%;
 }
 
 .form__input--text input {
@@ -55,7 +153,6 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    /* 枠線を含めて100%にする */
 }
 
 .form__button-submit {
@@ -70,8 +167,103 @@
     cursor: pointer;
     margin-top: 20px;
 }
-/* 入力欄の幅を調整 */
+
+/* ===============================================
+   5. 🌸 鉄壁のレスポンシブ（スマホ対応） 🌸
+   =============================================== */
+
+/* タブレット・スマホ（768px以下） */
+@media screen and (max-width: 768px) {
+    .header__inner {
+        flex-wrap: wrap;
+        /* 改行を許可 */
+        padding: 10px 20px;
+    }
+
+    .header__logo {
+        order: 1;
+    }
+
+    .header__nav {
+        order: 2;
+    }
+
+    .header__search {
+        order: 3;
+        flex: 0 0 100%;
+        /* 横幅100%にして下に落とす */
+        margin: 10px 0 0 0;
+    }
+}
+
+/* 小さなスマホ（480px以下） */
+@media screen and (max-width: 480px) {
+    .nav-list {
+        gap: 10px;
+    }
+
+    .nav-list a,
+    .nav-list button {
+        font-size: 12px;
+    }
+
+    .item-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* スマホは2列が正義 */
+        gap: 15px;
+    }
+
+    .form {
+        width: 100%;
+        /* フォームの幅をスマホいっぱいに */
+    }
+}
+
+/* --- 会員登録・ログインフォームのコンテナ --- */
+.contact-form__content {
+    margin: 80px auto;
+    /* ★上下に余白を持たせつつ、左右を auto で中央寄せに！ */
+    padding: 0 15px;
+    max-width: 400px;
+    /* ★フォームが広がりすぎないよう、幅を絞ると見本に近づきます */
+    text-align: center;
+    /* タイトルなどを中央に */
+}
+
+/* タイトルの装飾 */
+.contact-form__heading h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/* 各入力グループ */
+.form__group {
+    margin-bottom: 25px;
+    text-align: left;
+    /* ★ラベルや入力欄は左寄せに保つのが美しいです */
+}
+
+/* 入力欄（input）の横幅をコンテナいっぱいに */
 .form__input--text input {
     width: 100%;
-    /* 固定の600pxより、100%の方が崩れにくいです */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* 枠線を含めて100%にするおまじない */
+}
+
+/* 登録ボタン */
+.form__button-submit {
+    background: #ff5a5f;
+    color: #fff;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
 }

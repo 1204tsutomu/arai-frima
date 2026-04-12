@@ -49,6 +49,55 @@
             margin-bottom: 0;
             /* ★下（デカすぎの原因）の余白をゼロにする！ */
         }
+
+        /* --- 会員登録・ログインフォームのコンテナ --- */
+        .contact-form__content {
+            margin: 80px auto;
+            /* ★上下に余白を持たせつつ、左右を auto で中央寄せに！ */
+            padding: 0 15px;
+            max-width: 600px;
+            /* ★フォームが広がりすぎないよう、幅を絞ると見本に近づきます */
+            text-align: center;
+            /* タイトルなどを中央に */
+        }
+
+        /* タイトルの装飾 */
+        .contact-form__heading h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        /* 各入力グループ */
+        .form__group {
+            margin-bottom: 25px;
+            text-align: left;
+            /* ★ラベルや入力欄は左寄せに保つのが美しいです */
+        }
+
+        /* 入力欄（input）の横幅をコンテナいっぱいに */
+        .form__input--text input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            /* 枠線を含めて100%にするおまじない */
+        }
+
+        /* 登録ボタン */
+        .form__button-submit {
+            background: #ff5a5f;
+            color: #fff;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -56,7 +105,7 @@
     <header class="header">
         <div class="header__inner">
             <a class="header__logo" href="/">
-                COACHTECH
+                <img src="{{ asset(('img/logo.png')) }}" alt="COACHTECHロゴ">
             </a>
         </div>
     </header>
@@ -139,7 +188,7 @@
             </form>
 
             <div class="form__login-link">
-                <a href="/login">ログインはこちら</a>
+                <a href="{{ route('login') }}">ログインはこちら</a>
             </div>
         </div>
     </main>

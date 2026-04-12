@@ -19,9 +19,10 @@ class FortifyServiceProvider extends ServiceProvider
         //
     }
 
-    public function boot(): void
+    public function boot()
     {
         Fortify::createUsersUsing(\App\Actions\Fortify\CreateNewUser::class);
+
         Fortify::registerView(function () {
             return view('auth.register');
         });
@@ -30,8 +31,13 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.login');
         });
 
-        RateLimiter::for('login', function (Request $request) {
-            return Limit::perMinute(5)->by($request->email . $request->ip());
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify');
+        });
+
+        RateLimiter::for('login', function (\Illuminate\Http\Request $request) {
+            $email = (string) $request->email;
+            return \Illuminate\Cache\RateLimiting\Limit::perMinute(10)->by($email . $request->ip());
         });
     }
 }

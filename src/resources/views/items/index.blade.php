@@ -1,6 +1,6 @@
-@extends('layouts.app') {{-- これが重要！app.blade.phpを呼び出します --}}
+@extends('layouts.app')
 
-@section('content') {{-- ここから下が、app.blade.php の @yield('content') に流し込まれます --}}
+@section('content')
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 
 <div class="item-container">
@@ -8,24 +8,27 @@
         <span class="tab active">おすすめ</span>
         <span class="tab">マイリスト</span>
     </div>
-
     <div class="item-grid">
         @forelse ($items as $item)
-        <div class="item-card">
-            <div class="item-image">
-                @if($item->image_name)
-                <img src="{{ asset('storage/' . $item->image_name) }}" alt="{{ $item->name }}">
-                @else
-                <div class="dummy-box">商品画像</div>
-                @endif
+        {{-- ここからが「1つの商品」のまとまり --}}
+        <a href="{{ route('item.show', ['item_id' => $item->id]) }}" class="item-card-link" style="text-decoration: none; color: inherit;">
+            <div class="item-card">
+                <div class="item-image">
+                    @if($item->image_file)
+                    <img src="{{ asset('storage/' . $item->image_file) }}" alt="{{ $item->name }}">
+                    @else
+                    <div class="dummy-box">商品画像</div>
+                    @endif
+                </div>
+                <div class="item-info">
+                    <p class="item-name">{{ $item->name }}</p>
+                </div>
             </div>
-            {{-- ↓ ここをカードの中にしっかり閉じ込めます ↓ --}}
-            <div class="item-info">
-                <p class="item-name">{{ $item->name }}</p>
-            </div>
-        </div>
+        </a>
+        {{-- ここまでを1回だけ書く --}}
         @empty
         <p>商品が登録されていません。</p>
         @endforelse
     </div>
-    @endsection {{-- 終わり！ --}}
+</div> {{-- 閉じタグ忘れずに --}}
+@endsection

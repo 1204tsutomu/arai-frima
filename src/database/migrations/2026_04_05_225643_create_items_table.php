@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();                     // 商品ID
             $table->string('name');           // 商品名
             $table->integer('price');          // 価格
-            $table->string('image_name')->nullable(); // 商品画像名
+            $table->string('image_file'); // 商品画像名
             $table->timestamps();             // 作成日・更新日
         });
     }

@@ -267,3 +267,50 @@ body {
     cursor: pointer;
     margin-top: 20px;
 }
+
+/* 1. 商品全体を横並びにする魔法 */
+.item-grid {
+    display: flex;
+    flex-wrap: wrap;
+    /* 画面端で自動的に折り返す */
+    gap: 20px;
+    /* 商品カード同士の隙間 */
+    padding: 20px;
+    justify-content: flex-start;
+    /* 左詰めで並べる */
+}
+
+/* 2. 商品カード1つずつのサイズ指定 */
+.item-card {
+    width: 200px;
+    /* 旦那の好みで調整してください */
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 3. 画像エリアを正方形に保つ */
+.item-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* 正方形にする */
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 画像を枠いっぱいに綺麗に収める */
+}
+
+/* 4. 商品名の見た目 */
+.item-info {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}

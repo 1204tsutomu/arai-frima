@@ -1,0 +1,212 @@
+/* public/css/detail.css */
+
+.detail-container {
+    display: flex;
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+    gap: 60px;
+    /* 画像と情報の間の余白 */
+}
+
+/* 左側：画像セクション */
+.image-section {
+    flex: 1.2;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    min-height: 400px;
+}
+
+.image-section img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 右側：情報セクション */
+.info-section {
+    flex: 1;
+}
+
+.item-name {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.brand-name {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.price span {
+    font-size: 16px;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+/* いいね・コメントアイコン */
+.actions {
+    display: flex;
+    gap: 25px;
+    margin: 20px 0;
+}
+
+.action-item {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.action-item i {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+/* 購入ボタン */
+.btn-buy {
+    display: block;
+    width: 100%;
+    background-color: #ff4d4d;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 40px;
+    transition: background 0.3s;
+}
+
+.btn-buy:hover {
+    background-color: #e64444;
+}
+
+/* 見出し */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* 商品の情報テーブル */
+.meta-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.meta-table th {
+    width: 30%;
+    text-align: left;
+    padding: 15px 0;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.meta-table td {
+    padding: 15px 0;
+}
+
+/* カテゴリータグ */
+.category-tag {
+    background-color: #e0e0e0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+    margin-right: 5px;
+}
+
+/* 追加: アイコン画像のスタイル */
+.action-image {
+    width: 30px;
+    /* サイズ調整 */
+    height: 30px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* 既存の action-item を微調整 */
+.action-item {
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+/* コメントエリア */
+.comment-section {
+    margin-top: 40px;
+}
+
+.comment-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.user-icon {
+    width: 32px;
+    height: 32px;
+    background: #ddd;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.comment-text {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* 入力フォーム */
+.comment-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.comment-textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    min-height: 120px;
+    margin-bottom: 15px;
+}
+
+.btn-comment {
+    display: block;
+    width: 100%;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}

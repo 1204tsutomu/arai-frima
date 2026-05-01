@@ -16,7 +16,25 @@ class LoginController extends Controller
     // ログイン処理（後のために枠だけ作っておきます）
     public function store(Request $request)
     {
-        // ここにログイン認証の術を書きまする
+        // 1. バリデーション（入力チェック）
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // 2. ログインを試みる
+        if (Auth::attempt($credentials)) {
+            // セッションの再生成（セキュリティ対策）
+            $request->session()->regenerate();
+
+            // 成功したらトップページへ
+            return redirect()->intended('/');
+        }
+
+        // 3. 失敗したらエラーメッセージを持って戻る
+        return back()->withErrors([
+            'email' => 'メールアドレスまたはパスワードが正しくありません。',
+        ])->onlyInput('email');
     }
 
     // ログアウト処理

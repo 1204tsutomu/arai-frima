@@ -1,6 +1,4 @@
-## アプリケーション名
-
-# アプリケーション名（COACHTECHフリマ）
+# COACHTECH フリマ
 
 ## 環境構築
 
@@ -13,10 +11,12 @@
 
 - `docker-compose exec php bash`
 - `composer install`
-- `cp .env.example .env`（環境変数を変更）
+- `cp .env.example .env`
 - `php artisan key:generate`
 - `php artisan migrate`
 - `php artisan db:seed`
+- `php artisan storage:link`
+- `exit`
 
 ## 開発環境
 
@@ -28,7 +28,7 @@
 ## 使用技術（実行環境）
 
 - PHP 8.x
-- Laravel 8.x / 10.x
+- Laravel 8.x / 10.x（※旦那の実際のバージョンに合わせてください）
 - MySQL 8.0.x
 - nginx 1.21.1
 - Docker / docker-compose

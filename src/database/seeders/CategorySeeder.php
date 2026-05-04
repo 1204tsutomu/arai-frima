@@ -22,6 +22,9 @@ class CategorySeeder extends Seeder
             ['id' => 10, 'name' => 'キッチン'],
             ['id' => 11, 'name' => 'ハンドメイド'],
             ['id' => 12, 'name' => 'アクセサリー'],
+            ['id' => 13, 'name' => 'おもちゃ'],
+            ['id' => 14, 'name' => 'ベビー・キッズ'],
+            ['id' => 15, 'name' => 'その他'],
         ];
         DB::table('categories')->insert($categories);
     }

@@ -216,7 +216,9 @@
                 </div>
             </div>
 
-            <a href="#" class="btn-buy">購入手続きへ</a>
+            <a href="{{ route('item.purchase', ['item_id' => $item->id]) }}" class="btn-buy">
+                購入手続きへ
+            </a>
 
             <h2 class="section-title">商品説明</h2>
             <p>{!! nl2br(e($item->description)) !!}</p>

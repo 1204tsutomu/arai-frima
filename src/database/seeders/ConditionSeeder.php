@@ -10,11 +10,17 @@ class ConditionSeeder extends Seeder
     public function run()
     {
         $conditions = [
-            ['id' => 1, 'condition' => '良好'],
-            ['id' => 2, 'condition' => '目立った傷や汚れなし'],
-            ['id' => 3, 'condition' => 'やや傷や汚れあり'],
-            ['id' => 4, 'condition' => '状態が悪い'],
+            ['id' => 1, 'name' => '良好'],
+            ['id' => 2, 'name' => '目立った傷や汚れなし'],
+            ['id' => 3, 'name' => 'やや傷や汚れあり'],
+            ['id' => 4, 'name' => '状態が悪い'],
         ];
-        DB::table('conditions')->insert($conditions);
+
+        foreach ($conditions as $condition) {
+            DB::table('conditions')->updateOrInsert(
+                ['id' => $condition['id']],
+                ['name' => $condition['name']]
+            );
+        }
     }
 }

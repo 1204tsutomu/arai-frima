@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Condition;
 
 class Item extends Model
 {
@@ -17,22 +20,25 @@ class Item extends Model
     protected $fillable = [
         'name',
         'price',
-        'brand',        // 追加：要件にあるブランド名用
+        'brand',
         'description',
-        'image_file',   // マイグレーションのカラム名に合わせて調整
+        ' image_file',      // image_file から img_url に修正
         'condition_id',
         'user_id',
     ];
 
-
+    /**
+     * カテゴリーとの多対多リレーション
+     */
     public function categories()
     {
-        // 第二引数に中間テーブル名 'item_category' を指定します
+        // コントローラー側の attach と合わせるため、
+        // テーブル名を 'category_item' に統一します
         return $this->belongsToMany(Category::class, 'item_category');
     }
 
     /**
-     * 商品の状態とのリレーション（1対多）
+     * 商品の状態とのリレーション
      */
     public function condition()
     {
@@ -54,6 +60,6 @@ class Item extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class); // Likeモデルがある場合
+        return $this->hasMany(Like::class);
     }
 }

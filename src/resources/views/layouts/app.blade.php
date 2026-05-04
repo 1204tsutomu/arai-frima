@@ -67,7 +67,7 @@
             border-radius: 4px;
         }
 
-        /* --- 🌸 スマホ・タブレット用（レスポンシブ） --- */
+        /* --- スマホ・タブレット用（レスポンシブ） --- */
         @media screen and (max-width: 768px) {
             .header__inner {
                 flex-wrap: wrap;
@@ -121,12 +121,14 @@
                             <button type="submit" style="background:none; border:none; color:#fff; font-weight:bold; cursor:pointer; font-size:14px;">ログアウト</button>
                         </form>
                     </li>
-                    <li><a href="{{ route('mypage') }}">マイページ</a></li>
+                    <li><a href="{{ route('profile.index') }}">マイページ</a></li>
                     @endauth
+
                     @guest
                     <li><a href="{{ route('login') }}">ログイン</a></li>
                     <li><a href="{{ route('register') }}">会員登録</a></li>
                     @endguest
+
                     <li><a href="{{ route('item.create') }}" class="btn-exhibit">出品</a></li>
                 </ul>
             </nav>

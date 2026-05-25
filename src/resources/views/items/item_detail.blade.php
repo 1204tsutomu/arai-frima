@@ -135,6 +135,10 @@
         border-radius: 50%;
     }
 
+    .user-icon img {
+        width: 100%
+    }
+
     .comment-box {
         background: #f0f0f0;
         padding: 15px;
@@ -201,9 +205,9 @@
                         @csrf
                         <button type="submit" style="border: none; background: none; cursor: pointer; padding: 0;">
                             @if(Auth::check() && $item->likes->contains('user_id', Auth::id()))
-                            <span style="font-size: 32px; color: #ff4d4d;">❤️</span>
+                            <img src="{{ asset('img/ハートロゴ_ピンク.png') }}" alt="いいね済み" style="width: 32px; height: 32px;">
                             @else
-                            <span style="font-size: 32px; color: #ccc;">❤️</span>
+                            <img src="{{ asset('img/heart.png') }}" alt="いいね" style="width: 32px; height: 32px;">
                             @endif
                         </button>
                     </form>
@@ -211,7 +215,7 @@
                 </div>
 
                 <div class="action-item">
-                    <span style="font-size: 32px;">💬</span>
+                    <img src="{{ asset('img/comment.png') }}" alt="コメント" style="width: 32px; height: 32px;">
                     <span>{{ $item->comments->count() }}</span>
                 </div>
             </div>
@@ -242,7 +246,11 @@
             <h2 class="section-title">コメント ({{ $item->comments->count() }})</h2>
             @foreach($item->comments as $comment)
             <div class="comment-user">
-                <div class="user-icon"></div>
+                <div class="user-icon">
+                    @if($comment->user->image_file)
+                    <img src="{{ asset('storage/' .  $comment->user->image_file) }}" alt="{{ $comment->user->name }}">
+                    @endif
+                </div>
                 <strong>{{ $comment->user->name }}</strong>
             </div>
             <div class="comment-box">

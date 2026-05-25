@@ -24,6 +24,7 @@ class User extends Authenticatable
         'postal_code',
         'address',
         'building',
+        'image_file',
     ];
 
     /**
@@ -44,4 +45,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function likes()
+    {
+        // 中間テーブル名が「likes」または「item_user」等になっている想定です
+        // 第二引数に中間テーブル名が明示的に必要な場合は、必要に応じて記述してください
+        return $this->belongsToMany(Item::class, 'likes');
+    }
 }

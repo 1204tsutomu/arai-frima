@@ -15,15 +15,52 @@ class ItemController extends Controller
     /**
      * 商品一覧表示
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
-        return view('items.index', compact('items'));
-    }
+        // クエリパラメータからタブと検索キーワードを取得
+        $tab = $request->query('tab', 'recommend');
+        $search = $request->query('search');
 
-    /**
-     * 商品詳細表示
-     */
+        if ($tab === 'mylist') {
+            // ==========================================
+            // 【マイリストタブ】が選択された場合
+            // ==========================================
+            if (Auth::check()) {
+                // 自分が「いいね」した商品をベースにするクエリを作成
+                $query = Auth::user()->likes();
+
+                // 検索キーワードがあれば、商品名で部分一致検索を追加
+                if (!empty($search)) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                }
+
+                $items = $query->get();
+            } else {
+                $items = collect();
+            }
+        } else {
+            // ==========================================
+            // 【おすすめタブ（デフォルト）】の場合
+            // ==========================================
+            // 基本的な商品のクエリを作成
+            $query = Item::query();
+
+            if (Auth::check()) {
+                // ログインしている場合は自分以外の出品商品
+                $query->where('user_id', '!=', Auth::id());
+            }
+
+            // 検索キーワードがあれば、商品名で部分一致検索を追加
+            if (!empty($search)) {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+
+            $items = $query->get();
+        }
+
+        // ビューに $items, $tab, そして入力された $search ワードを渡す
+        return view('items.index', compact('items', 'tab', 'search'));
+    }
     public function show($item_id)
     {
         // categories, likes, comments（とその投稿者）をまとめて取得してエラーを防ぐ

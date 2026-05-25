@@ -59,7 +59,7 @@ class ProfileController extends Controller
         // 画像アップロード処理
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('avatars', 'public');
-            $updateData['img_url'] = $path;
+            $updateData['image_file'] = $path;
         }
 
         $user->update($updateData);

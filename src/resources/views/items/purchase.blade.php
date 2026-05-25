@@ -204,7 +204,7 @@
             </tr>
         </table>
 
-        <form action="{{ route('item.buy', $item->id) }}" method="POST" id="buy-form">
+        <form action="{{ route('item.buy', $item->id) }}" method="POST" id="buy-form" novalidate>
             @csrf
             <button type="submit" class="btn-buy">購入する</button>
         </form>

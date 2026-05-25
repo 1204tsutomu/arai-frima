@@ -15,10 +15,22 @@
             <div class="item-card">
                 <div class="item-image">
                     @if($item->image_file)
-                    <img src="{{ asset('storage/image/' . $item->image_file) }}" alt="{{ $item->name }}">
+                    <img src="{{ asset('storage/' . $item->image_file) }}" alt="{{ $item->name }}">
                     @else
                     <div class="dummy-box">商品画像</div>
                     @endif
+
+                    {{-- ▼▼▼ ここから差し替え・追記 ▼▼▼ --}}
+                    @if(
+                    strpos($item->name, '売却済み') !== false ||
+                    ($item->orders && $item->orders->count() > 0) ||
+                    $item->order ||
+                    !empty($item->is_sold) ||
+                    !empty($item->buyer_id)
+                    )
+                    <span class="sold-label" style="position: absolute; top: 0; left: 0; background: red; color: white; padding: 2px 5px;">Sold</span>
+                    @endif
+                    {{-- ▲▲▲ ここまで ▲▲▲ --}}
                 </div>
                 <div class="item-info">
                     <p class="item-name">{{ $item->name }}</p>

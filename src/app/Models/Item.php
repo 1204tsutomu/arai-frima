@@ -22,7 +22,7 @@ class Item extends Model
         'price',
         'brand',
         'description',
-        ' image_file',      // image_file から img_url に修正
+        'image_file',      // image_file から img_url に修正
         'condition_id',
         'user_id',
     ];

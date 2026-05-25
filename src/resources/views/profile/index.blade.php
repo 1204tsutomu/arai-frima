@@ -2,13 +2,13 @@
 
 @section('content')
 <style>
+    /* ...既存のスタイル（省略なし）... */
     .profile-wrapper {
         max-width: 1000px;
         margin: 40px auto;
         padding: 0 20px;
     }
 
-    /* ユーザー情報ヘッダー */
     .profile-header {
         display: flex;
         align-items: center;
@@ -60,7 +60,6 @@
         color: #fff;
     }
 
-    /* タブ切り替えエリア */
     .tabs {
         display: flex;
         border-bottom: 2px solid #eee;
@@ -83,7 +82,6 @@
         border-bottom-color: #ff4d4d;
     }
 
-    /* 商品グリッド */
     .item-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -122,7 +120,6 @@
         line-height: 1.4;
     }
 
-    /* 売り切れラベル（Figmaに合わせる場合） */
     .sold-label {
         position: absolute;
         top: 0;
@@ -168,8 +165,9 @@
     {{-- ユーザー情報ヘッダー --}}
     <div class="profile-header">
         <div class="profile-avatar">
-            @if($user->img_url)
-            <img src="{{ asset('storage/' . $user->img_url) }}" alt="ユーザーアイコン">
+            @if($user->image_file)
+            {{-- ★修正：アバターもimageフォルダ内ならパスを追加 --}}
+            <img src="{{ asset('storage/' . $user->image_file) }}" alt="ユーザーアイコン">
             @else
             <div style="font-size: 60px; text-align: center; line-height: 120px; background: #eee; color: #999;">👤</div>
             @endif
@@ -196,14 +194,14 @@
         @forelse($displayItems as $item)
         <a href="{{ route('item.show', $item->id) }}" class="item-card">
             <div class="item-image">
-                {{-- 売り切れ判定（購入履歴がある、またはフラグがある場合） --}}
                 @if($item->is_sold || ($currentPage == 'purchased'))
                 <div class="sold-label"></div>
                 <span class="sold-text">SOLD</span>
                 @endif
 
-                @if($item->img_url)
-                <img src="{{ asset('storage/' . $item->img_url) }}" alt="{{ $item->name }}">
+                @if($item->image_file)
+                {{-- ★重要修正：imageフォルダをパスに含める --}}
+                <img src="{{ asset('storage/' . $item->image_file) }}" alt="{{ $item->name }}">
                 @else
                 <div style="width:100%; height:100%; background:#f0f0f0; display:flex; align-items:center; justify-content:center; color:#ccc;">No Image</div>
                 @endif

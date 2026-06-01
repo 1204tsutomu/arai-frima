@@ -23,12 +23,11 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'     => User::factory(),          // 出品者（誰が出品したか）
-            'name'        => $this->faker->word(),     // 商品名
-            'price'       => $this->faker->numberBetween(500, 10000), // 価格
-            'description' => $this->faker->sentence(), // 商品説明
-            // ⚠️ もし教材のマイグレーション（テーブル定義）に「画像（image_urlなど）」や
-            // 「状態（condition）」などの必須カラムがあれば、ここに追記してください。
+            'user_id'     => User::factory(),
+            'name'        => $this->faker->word(),
+            'price'       => $this->faker->numberBetween(500, 10000),
+            'description' => $this->faker->sentence(),
+
             'image_file'  => 'test_image.jpg',
         ];
     }

@@ -33,59 +33,59 @@
             font-size: 14px;
         }
 
-        /* エラーメッセージを赤く、少し小さくするスタイル */
+
         .form__error p {
             color: red;
             font-size: 0.8em;
             margin-top: 5px;
         }
 
-        /* 117行目あたり、もし無ければ追加 */
+
         .form__error p {
             color: red;
             font-size: 0.8em;
             margin-top: 5px;
-            /* 上の余白を少し詰める */
+
             margin-bottom: 0;
-            /* ★下（デカすぎの原因）の余白をゼロにする！ */
+
         }
 
-        /* --- 会員登録・ログインフォームのコンテナ --- */
+
         .contact-form__content {
             margin: 80px auto;
-            /* ★上下に余白を持たせつつ、左右を auto で中央寄せに！ */
+
             padding: 0 15px;
             max-width: 600px;
-            /* ★フォームが広がりすぎないよう、幅を絞ると見本に近づきます */
+
             text-align: center;
-            /* タイトルなどを中央に */
+
         }
 
-        /* タイトルの装飾 */
+
         .contact-form__heading h2 {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 40px;
         }
 
-        /* 各入力グループ */
+
         .form__group {
             margin-bottom: 25px;
             text-align: left;
-            /* ★ラベルや入力欄は左寄せに保つのが美しいです */
+
         }
 
-        /* 入力欄（input）の横幅をコンテナいっぱいに */
+
         .form__input--text input {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-            /* 枠線を含めて100%にするおまじない */
+
         }
 
-        /* 登録ボタン */
+
         .form__button-submit {
             background: #ff5a5f;
             color: #fff;

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail; // これが重要です！
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail // ← implementsを追加
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -49,7 +49,6 @@ class User extends Authenticatable
     public function likes()
     {
         // 中間テーブル名が「likes」または「item_user」等になっている想定です
-        // 第二引数に中間テーブル名が明示的に必要な場合は、必要に応じて記述してください
         return $this->belongsToMany(Item::class, 'likes');
     }
 }

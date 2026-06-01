@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
-
     public function index()
     {
         return view('auth.register');
     }
-
-
-    // App/Http/Controllers/RegisterController.php
 
     public function store(RegisterRequest $request)
     {
@@ -29,9 +25,12 @@ class RegisterController extends Controller
         ]);
 
 
+        event(new Registered($user));
+
+
         auth()->login($user);
 
 
-        return redirect()->route('profile.edit');
+        return redirect()->route('verification.notice');
     }
 }

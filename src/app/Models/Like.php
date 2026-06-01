@@ -11,7 +11,7 @@ class Like extends Model
 
     protected $fillable = ['user_id', 'item_id'];
 
-    // どの商品へのいいねか
+
     public function item()
     {
         return $this->belongsTo(Item::class);

@@ -96,18 +96,38 @@ class ItemController extends Controller
         $item = Item::findOrFail($item_id);
         $user = Auth::user();
 
-        return view('items.purchase', compact('item', 'user'));
+        // セッションに変更後の住所があれば取得、なければユーザーの初期住所を使う
+        $postal_code = session('new_postal_code', $user->postal_code);
+        $address = session('new_address', $user->address);
+        $building = session('new_building', $user->building);
+
+        return view('items.purchase', compact('item', 'user', 'postal_code', 'address', 'building'));
     }
     public function buy(Request $request, $item_id)
     {
         $request->validate([
             'payment_method' => 'required'
         ]);
+
+        $user = Auth::user();
+
+        // セッションに変更後の住所があればそれを使い、なければユーザーの初期住所を使う
+        $postal_code = session('new_postal_code', $user->postal_code);
+        $address = session('new_address', $user->address);
+        $building = session('new_building', $user->building);
+
+        // データベースに購入情報と配送先住所を紐づけて保存
         Order::create([
-            'user_id' => auth()->id(),
-            'item_id' => $item_id,
+            'user_id'        => $user->id,
+            'item_id'        => $item_id,
             'payment_method' => $request->payment_method,
+            'postal_code'    => $postal_code,
+            'address'        => $address,
+            'building'       => $building,
         ]);
+
+        // 購入が完了したので、配送先変更の一時セッションをクリアする
+        session()->forget(['new_postal_code', 'new_address', 'new_building']);
 
         return redirect()->route('items.index')->with('message', '購入が完了しました！');
     }

@@ -188,8 +188,8 @@
                 {{-- 配送先変更画面への遷移 (Task 64) --}}
                 <a href="{{ route('profile.editAddress', $item->id) }}" class="btn-change">変更する</a>
             </div>
-            <p>〒 {{ Auth::user()->post_code }}</p>
-            <p>{{ Auth::user()->address }} {{ Auth::user()->building }}</p>
+            <p>〒 {{ $postal_code }}</p>
+            <p>{{ $address }} {{ $building }}</p>
         </div>
     </div>
     <div class="purchase-right">

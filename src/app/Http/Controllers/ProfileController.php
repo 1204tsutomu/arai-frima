@@ -6,37 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
-    /**
-     * プロフィール表示画面 (Task 67-70)
-     */
+
     public function index()
     {
         $user = Auth::user();
 
-        // 自分が「出品した商品」を取得
+
         $sellingItems = Item::where('user_id', $user->id)->get();
 
-        // 購入履歴（まだ未実装なら一旦空のままでOK）
-        $purchasedItems = [];
+
+        $purchasedItemIds = Order::where('user_id', $user->id)->pluck('item_id');
+        $purchasedItems = Item::whereIn('id', $purchasedItemIds)->get();
 
         return view('profile.index', compact('user', 'sellingItems', 'purchasedItems'));
     }
 
-    /**
-     * プロフィール編集画面 (Task 71-72)
-     */
+
     public function edit()
     {
         $user = Auth::user();
         return view('profile.edit', compact('user'));
     }
 
-    /**
-     * プロフィール更新処理 (Task 73)
-     */
+
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -56,7 +52,7 @@ class ProfileController extends Controller
             'building'    => $request->building,
         ];
 
-        // 画像アップロード処理
+
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('avatars', 'public');
             $updateData['image_file'] = $path;
@@ -67,18 +63,14 @@ class ProfileController extends Controller
         return redirect()->route('profile.index')->with('message', 'プロフィールを更新しました！');
     }
 
-    /**
-     * 住所変更画面（購入手続きから）
-     */
+
     public function editAddress($item_id)
     {
         $user = Auth::user();
         return view('profile.edit_address', compact('user', 'item_id'));
     }
 
-    /**
-     * 住所更新処理（購入手続きへ戻る）
-     */
+
     public function updateAddress(Request $request, $item_id)
     {
         $request->validate([
@@ -93,7 +85,7 @@ class ProfileController extends Controller
             'building'    => $request->building,
         ]);
 
-        // 更新後は購入画面に戻る
+
         return redirect()->route('item.purchase', ['item_id' => $item_id]);
     }
 }
